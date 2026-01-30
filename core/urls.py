@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('ma/', admin.site.urls),
     path('', include('courses.urls')),
 ]
 if settings.DEBUG:
