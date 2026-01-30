@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}"> 
+</head>
+<body>
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <span>{{ title }}</span>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="input_box">
+                    {{ field }}
+                    {% if not field.value %}
+                    <label class="label">{{ field.label }}</label>
+                    {% endif %}
+                </div>
+                {% endfor %}
+
+                <div class="input_box">
+                    <button type="submit" class="input-submit">Save</button>
+                </div>
+                
+                <div class="input_box">
+                   <a href="{% url 'dashboard' %}" style="color: #fff; text-decoration: none; display: block; text-align: center; margin-top: 10px;">Cancel and Return</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

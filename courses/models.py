@@ -12,9 +12,11 @@ class StudentProfile(models.Model):
 
 class Course(models.Model):
     teacher = models.ForeignKey(User,on_delete = models.CASCADE)
-    name = models.CharField(max_length = 100)
+    title = models.CharField(max_length = 100)
     description = models.TextField()
     price = models.IntegerField()
-    image = models.ImageField(upload_to = 'images',blank = True,null = True)
+    image = models.ImageField(upload_to = 'images')
+    grade = models.CharField(max_length = 100)
+    tag = models.CharField(max_length = 100)
     def __str__(self):
-        return self.name
+        return self.title

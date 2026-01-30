@@ -3,7 +3,7 @@ from django.contrib.auth import login , logout , authenticate
 from django.contrib.auth.models import User
 from .models import StudentProfile , Course
 from django.contrib.auth.decorators import login_required , user_passes_test
-
+from .forms import CourseForm
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -41,10 +41,57 @@ def is_teacher(user):
     return user.groups.filter(name='Teacher').exists()
 
 @login_required
-@user_passes_test(is_teacher)
 def homepage(request):
     course = Course.objects.all()
     return render(request , 'homepage.html' , {'course' : course})
 
 def landing_page(request):
     return render(request , 'landing.html')
+
+@user_passes_test(is_teacher)
+@login_required
+def add_course(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST , request.FILES)
+        if form.is_valid():
+            course = form.save(commit = False)
+            course.teacher = request.user
+            course.save()
+            return redirect('dashboard')
+    else:
+        form = CourseForm()
+    return render(request , 'course_form.html' , {'form' : form})
+
+@user_passes_test(is_teacher)
+@login_required
+def edit_course(request , course_id):
+    course = Course.objects.get(Course,id = course_id)
+    if course.teacher != request.user:
+        return redirect('homepage')
+
+    if request.method == 'POST':
+        form = CourseForm(request.POST , request.FILES , instance = course)
+        if form.is_valid():
+            course = form.save(commit = False)
+            course.teacher = request.user
+            course.save()
+            return redirect('dashboard')
+    else:
+        form = CourseForm(instance = course)
+    return render(request , 'course_form.html' , {'form' : form})
+
+@user_passes_test(is_teacher)
+@login_required
+def delete_course(request , course_id):
+    course = Course.objects.get(Course,id = course_id)
+    if course.teacher != request.user:
+        return redirect('homepage')
+    else:
+        course.delete()
+    return redirect('dashboard')
+
+@user_passes_test(is_teacher)
+@login_required
+def dashboard(request):
+    courses = Course.objects.filter(teacher=request.user)
+    return render(request, 'dashboard.html', {'courses': courses})
