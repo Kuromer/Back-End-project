@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Teachers Homepage</title>
+    <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+</head>
+<body>
+   
+   
+    <div class="main">
+        <div class="navbar">
+    <div class="icon">
+        <h2 class="logo">FCI</h2>
+    </div>
+
+    <div class="menu">
+        <ul>
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#">عن المنصة</a></li>
+            <li><a href="#">الخدمات</a></li>
+            <li><a href="#">الكورسات</a></li>
+            <li><a href="#">تواصل معنا</a></li>
+        </ul>
+    </div>
+
+    <!-- This new wrapper fixes everything -->
+    <div class="right-side">
+        
+
+       
+
+        <div class="search">
+            <input class="srch" type="search" placeholder="">
+            <button class="btn">Search</button>
+        </div>
+        <div class="wallet-bar">
+            <div class="wallet-icon">
+                <ion-icon name="wallet-outline"></ion-icon>
+            </div>
+            <span class="balance-text">رصيدك: <span class="balance-amount">0 ج.م</span></span>
+        </div>
+         <div class="image">
+            <img src="{% static 'images/icon.png' %}" alt="Profile">
+        </div>
+
+    </div>
+</div>
+            <div class="gallery">
+                {% for cours in course %}
+                <div class="content">
+                    {% if cours.image %}
+                   <img src="{{ cours.image.url }}">
+                   {% endif %}
+                   <h3>{{ cours.name }}</h3>
+                   <p>{{ cours.description }}
+                    </p>
+                    
+                    <a href="mohamedsalah.html" class="input-submit">سجل الان</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+       
+    </div>
+</div>
+</div>
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</body>
+</html>

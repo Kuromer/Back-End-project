@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial scale=1.0">
+        <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <title>Login</title>
+    </head>
+    <body>
+    
+        <form method="post">
+            {% csrf_token %}
+            <div class="wrapper">
+                <div class="login-box">
+                    <div class="login-header">
+                        <span>Sign Up</span>
+
+                    </div>
+                    <div class="input_box">
+                        <input type="text" name="username" id="name" class="input-field" required>
+                        <label for="user" class="label" >Enter Your Name</label>
+                        <i class="bx bx-user icon"></i> 
+                    </div>
+                    <div class="input_box">
+                        <input type="number" name="age" id="age" class="input-field" required>
+                        <label for="pass" class="label" >Enter Your Age</label>
+                    
+                    </div>
+                    <div class="input_box">
+                        <input type="email" name="email" id="email" class="input-field" required>
+                        <label for="user" class="label" >Enter Your Email</label>
+                        
+                    </div>
+                    <div class="input_box">
+                        <input type="password" name="password" id="password" class="input-field" required>
+                        <label for="user" class="label" >Enter Your Password</label>
+                        <i class="bx bx-lock-alt icon"></i> 
+                    </div>
+                    <div class="input_box">
+                        <input type="text" name="phone_number" id="user" class="input-field" required>
+                        <label for="user" class="label" >Enter Your Number</label>
+                    
+                    </div>
+                    <div class="input_box">
+                        <input type="text" name="parent_number" id="user" class="input-field" required>
+                        <label for="user" class="label" >Enter Your Parent Number</label>
+                    
+                    </div>
+                    <div class="remember-forgot">
+                    
+                        
+                    
+                    </div>
+                    <div class="input_box">
+                        <button type="submit" class="input-submit">Sign Up</button>
+                    </div>
+                    
+                    <div class="icons">
+                            <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                            <a href="#"><ion-icon name="logo-google"></ion-icon></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    </body>
+</html>
