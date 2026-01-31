@@ -1,70 +1,93 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Teachers Homepage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCI | EDU.Platform </title>
     <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-   
-   
+
     <div class="main">
+
         <div class="navbar">
-    <div class="icon">
-        <h2 class="logo">FCI</h2>
-    </div>
 
-    <div class="menu">
-        <ul>
-            <li><a href="#">الرئيسية</a></li>
-            <li><a href="#">عن المنصة</a></li>
-            <li><a href="#">الخدمات</a></li>
-            <li><a href="#">الكورسات</a></li>
-            <li><a href="#">تواصل معنا</a></li>
-        </ul>
-    </div>
-
-    <!-- This new wrapper fixes everything -->
-    <div class="right-side">
-        
-
-       
-
-        <div class="search">
-            <input class="srch" type="search" placeholder="">
-            <button class="btn">Search</button>
-        </div>
-        <div class="wallet-bar">
-            <div class="wallet-icon">
-                <ion-icon name="wallet-outline"></ion-icon>
+            <div class="icon">
+                <h2 class="logo">FCI</h2>
             </div>
-            <span class="balance-text">رصيدك: <span class="balance-amount">0 ج.م</span></span>
-        </div>
-         <div class="image">
-            <img src="{% static 'images/icon.png' %}" alt="Profile">
+            <div class="menu">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="right-side">
+
+                {% if is_teacher %}
+                <a href="{% url 'dashboard' %}" class="btn-dashboard">
+                    <ion-icon name="settings-outline"></ion-icon>
+                    <span>Dashboard</span>
+                </a>
+                {% endif %}
+
+                <div class="search">
+                    <input class="srch" type="search" name="" placeholder="Search...">
+                    <button class="btn">Search</button>
+                </div>
+
+                {% if user.is_authenticated %}
+                <div class="wallet-bar">
+                    <div class="wallet-icon">
+                        <ion-icon name="wallet-outline"></ion-icon>
+                    </div>
+                    <span class="balance-text">Balance: <span class="balance-amount">0 EGP</span></span>
+                </div>
+                {% endif %}
+
+                <div class="image">
+                    {% if user.is_authenticated %}
+                        <img src="{% static 'images/icon.png' %}" alt="Profile">
+                        <a href="{% url 'logout' %}" style="margin-right: 5px; color: #ff4757;">
+                            <ion-icon name="log-out-outline" style="font-size: 24px;"></ion-icon>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login' %}" style="color: #fff; text-decoration: none; font-weight: bold;">Login</a>
+                    {% endif %}
+                </div>
+
+            </div>
         </div>
 
-    </div>
-</div>
-            <div class="gallery">
-                {% for cours in course %}
+        <div class="gallery">
+            {% if courses %}
+
+                {% for course in courses %}
                 <div class="content">
-                    {% if cours.image %}
-                   <img src="{{ cours.image.url }}">
-                   {% endif %}
-                   <h3>{{ cours.name }}</h3>
-                   <p>{{ cours.description }}
-                    </p>
-                    
-                    <a href="mohamedsalah.html" class="input-submit">سجل الان</a>
+                    {% if course.image %}
+                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                    {% endif %}
+
+                    <h3>{{ course.title }}</h3>
+                    <p>{{ course.description|truncatewords:20 }}</p>
+                    <h4 style="color: #00d4ff; margin: 10px 0;">{{ course.price }} EGP</h4>
+
+                    <a href="#" class="input-submit">Enroll Now</a>
                 </div>
                 {% endfor %}
-            </div>
+
+            {% else %}
+                <p style="color: white; text-align: center; width: 100%;">No Course Available</p>
+            {% endif %}
         </div>
-       
+
     </div>
-</div>
-</div>
-<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
 </body>
 </html>

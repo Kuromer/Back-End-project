@@ -249,3 +249,41 @@ body {
     .srch { width: 180px; }
     .btn { width: 90px; font-size: 15px; }
 }
+
+
+.btn-dashboard {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #00d4ff;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.btn-dashboard ion-icon {
+    font-size: 20px;
+}
+
+
+.btn-dashboard:hover {
+    background: #00d4ff;
+    color: #1e3c72;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    transform: translateY(-3px);
+    border-color: #00d4ff;
+}
+
+@media (max-width: 992px) {
+    .btn-dashboard {
+        order: 1;
+        width: 100%;
+        justify-content: center;
+    }
+}
